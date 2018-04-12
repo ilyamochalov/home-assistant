@@ -48,6 +48,7 @@ ATTR_PURIFY_VOLUME = 'purify_volume'
 
 ATTR_BRIGHTNESS = 'brightness'
 ATTR_LEVEL = 'level'
+ATTR_SPEED = 'speed'
 
 SUCCESS = ['ok']
 
@@ -59,6 +60,9 @@ SERVICE_SET_CHILD_LOCK_ON = 'xiaomi_miio_set_child_lock_on'
 SERVICE_SET_CHILD_LOCK_OFF = 'xiaomi_miio_set_child_lock_off'
 SERVICE_SET_FAVORITE_LEVEL = 'xiaomi_miio_set_favorite_level'
 SERVICE_SET_LED_BRIGHTNESS = 'xiaomi_miio_set_led_brightness'
+SERVICE_SET_TURN_ON = 'xiomi_miio_turn_on'
+SERVICE_SET_TURN_OFF = 'xiomi_miio_turn_off'
+SERVICE_SET_SPEED = 'xiaomi_miio_set_speed'
 
 AIRPURIFIER_SERVICE_SCHEMA = vol.Schema({
     vol.Optional(ATTR_ENTITY_ID): cv.entity_ids,
@@ -74,7 +78,19 @@ SERVICE_SCHEMA_FAVORITE_LEVEL = AIRPURIFIER_SERVICE_SCHEMA.extend({
         vol.All(vol.Coerce(int), vol.Clamp(min=0, max=16))
 })
 
+
+SERVICE_SCHEMA_SPEED = AIRPURIFIER_SERVICE_SCHEMA.extend({
+    vol.Optional(ATTR_SPEED):
+        vol.Coerce(str)
+})
+
 SERVICE_TO_METHOD = {
+    SERVICE_SET_SPEED: {
+        'method': 'async_set_speed',
+        'schema': SERVICE_SCHEMA_SPEED},
+    SERVICE_SET_TURN_ON: {'method': 'async_turn_on',
+                          'schema': SERVICE_SCHEMA_SPEED},
+    SERVICE_SET_TURN_OFF: {'method': 'async_turn_off'},
     SERVICE_SET_BUZZER_ON: {'method': 'async_set_buzzer_on'},
     SERVICE_SET_BUZZER_OFF: {'method': 'async_set_buzzer_off'},
     SERVICE_SET_LED_ON: {'method': 'async_set_led_on'},

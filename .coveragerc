@@ -585,6 +585,7 @@ omit =
     homeassistant/components/sensor/foobot.py
     homeassistant/components/sensor/fritzbox_callmonitor.py
     homeassistant/components/sensor/fritzbox_netmonitor.py
+    homeassistant/components/sensor/gams.py
     homeassistant/components/sensor/gearbest.py
     homeassistant/components/sensor/geizhals.py
     homeassistant/components/sensor/gitter.py
